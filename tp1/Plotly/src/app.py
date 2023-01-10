@@ -28,26 +28,28 @@ app.title = 'TP1 | INF8808'
 
 def generate_data():
     '''
-		Generates random data to be displayed in the scatter plot.
+        Generates random data to be displayed in the scatter plot.
 
-		The data must be a 2 X m array of randomly generated (x, y) coordinates, with :
-			- x : an integer in [1, 99],
-			- y : an integer in [1, 99],
+        The data must be a 2 X m array of randomly generated (x, y) coordinates, with :
+            - x : an integer in [1, 99],
+            - y : an integer in [1, 99],
 
-		and where m is a random number in [1, 10].
+        and where m is a random number in [1, 10].
 
-		For example, the coordinates could be :
+        For example, the coordinates could be :
             x  |  y
           ----------
             99 | 4
             27 | 89
             17 | 42
     Returns:
-		A pandas dataframe with columns 'x' and 'y' containing the randomly
-		generated coordinate data.
+        A pandas dataframe with columns 'x' and 'y' containing the randomly
+        generated coordinate data.
     '''
         # TODO: Return the data generated as described above
-    return pd.DataFrame()
+    m = np.random.randint(1, 11)
+    grid = np.random.randint(1, 99, size=(m, 2))
+    return pd.DataFrame(data=grid, columns=['x', 'y'])
 
 
 def get_layout():
@@ -87,7 +89,7 @@ def init_figure(dataframe, layout):
     '''
         # TODO: Return Figure defined as described above, using the provided layout
     return go.Figure(
-        data=go.Scatter(),
+        data=go.Scatter(x=dataframe.x, y=dataframe.y, mode='markers', marker_color='#07BEB8', marker_size=10),
         layout=layout
     )
 
@@ -106,6 +108,10 @@ def init_app_layout(figure):
         # * An 'h1' element with text : 'TP1'
         # * A'div' element with text : 'Bienvenue au cours INF8808 : Visualisation de données.'
     return html.Div(children=[
+        html.Header(children=[
+            html.H1('TP1'),
+            html.Div('Bienvenue au cours INF8808 : Visualisation de données.')
+        ]),
         html.Main(children=[
             html.Div(id='viz-group', children=[
                 Graph(
@@ -137,7 +143,7 @@ def update_figure(figure):
     updated_df = generate_data()
 
     figure = go.Figure(figure) # conversion back to Graph Object
- 
+
     if not updated_df.empty:
         figure.update_traces(x=updated_df.x, y=updated_df.y)
 
@@ -161,8 +167,10 @@ def update_label(figure):
         # TODO: Create HTML elements for the label
         # The text should say 'Il y a X point' or 'Il y a : X points'
         # depending on how many points there are, where X  is the number of points
-
-    return []
+    
+    numberOfPoints = len(figure.data[0].x)
+    label_elements = html.Span(f"Il y a {numberOfPoints} point{'s' if numberOfPoints > 1 else ''}", style={'font-weight': 'bold'})
+    return label_elements
 
 
 @app.callback(
