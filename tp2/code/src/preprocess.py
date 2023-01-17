@@ -6,6 +6,7 @@ from modes import MODE_TO_COLUMN
 
 
 def summarize_lines(my_df):
+    
     '''
         Sums each player's total of number of lines and  its
         corresponding percentage per act.
@@ -24,13 +25,18 @@ def summarize_lines(my_df):
     '''
     # TODO : Modify the dataframe, removing the line content and replacing
     # it by line count and percent per player per act
+    my_df['PlayerLine'] = my_df.groupby(by=['Player', 'Act'])['Line'].transform('count')
+    my_df['PlayerPercent'] = my_df.groupby(by=['Act'])['Line'].transform('count')
+    my_df['PlayerPercent'] = my_df['PlayerLine'] / my_df['PlayerPercent'] * 100
+    my_df = my_df.drop_duplicates(subset=['Player', 'Act']).reset_index(drop=True)
+
     return my_df
 
 
 def replace_others(my_df):
     '''
         For each act, keeps the 5 players with the most lines
-        throughout the play and groups the other plyaers
+        throughout the play and groups the other players
         together in a new line where :
 
         - The 'Act' column contains the act
@@ -52,8 +58,16 @@ def replace_others(my_df):
     '''
     # TODO : Replace players in each act not in the top 5 by a
     # new player 'OTHER' which sums their line count and percentage
-    return my_df
 
+    # Get the top 5 players per act
+    my_df.drop(columns=['Scene', 'Line'], inplace=True)
+    top_5 = my_df.groupby(by=['Player'])['PlayerLine'].sum().sort_values(ascending=False).head(5)
+    my_df['Player'] = my_df['Player'].apply(lambda x: x if x in top_5 else 'OTHER')
+    my_df = my_df.groupby(by=['Act', 'Player']).sum().reset_index()
+    my_df['LineCount'] = my_df['PlayerLine']
+    my_df['PercentCount'] = my_df['PlayerPercent']
+    my_df.drop(columns=['PlayerLine', 'PlayerPercent'], inplace=True)
+    return my_df
 
 def clean_names(my_df):
     '''
@@ -64,4 +78,5 @@ def clean_names(my_df):
             The df with formatted names
     '''
     # TODO : Clean the player names
+    my_df['Player'] = my_df['Player'].apply(lambda x: x.capitalize())
     return my_df
