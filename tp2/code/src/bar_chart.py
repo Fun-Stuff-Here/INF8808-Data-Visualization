@@ -24,10 +24,11 @@ def init_figure():
     # TODO : Update the template to include our new theme and set the title
 
     fig.update_layout(
-        template=pio.templates['simple_white'],
-        dragmode=False,
-        barmode='relative'
+        title='Lines per act',
+        template='simple_white',
+        hovermode='closest',
     )
+
 
     return fig
 
@@ -45,6 +46,14 @@ def draw(fig, data, mode):
     '''
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
+    fig.add_trace(
+        go.Bar(
+            x=data['Act'],
+            y=data[MODE_TO_COLUMN[mode]],
+            name='Lines per act',
+        )
+    )
+    
     return fig
 
 
@@ -59,3 +68,16 @@ def update_y_axis(fig, mode):
             The updated figure
     '''
     # TODO : Update the y axis title according to the current mode
+    if mode == MODES['count']:
+        fig.update_layout(
+            yaxis=dict(
+                title='Lines (Count)'
+            )
+        )
+    if mode == MODES['percent']:
+        fig.update_layout(
+            yaxis=dict(
+                title='Lines (%)'
+            )
+        )
+    return fig

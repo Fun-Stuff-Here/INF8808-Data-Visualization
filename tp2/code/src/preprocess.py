@@ -65,7 +65,7 @@ def replace_others(my_df):
     my_df['Player'] = my_df['Player'].apply(lambda x: x if x in top_5 else 'OTHER')
     my_df = my_df.groupby(by=['Act', 'Player']).sum().reset_index()
     my_df['LineCount'] = my_df['PlayerLine']
-    my_df['PercentCount'] = my_df['PlayerPercent']
+    my_df['LinePercent'] = my_df['PlayerPercent']
     my_df.drop(columns=['PlayerLine', 'PlayerPercent'], inplace=True)
     return my_df
 
