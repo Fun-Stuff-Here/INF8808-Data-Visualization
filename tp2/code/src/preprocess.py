@@ -6,6 +6,7 @@ from modes import MODE_TO_COLUMN
 
 
 def summarize_lines(my_df):
+    
     '''
         Sums each player's total of number of lines and  its
         corresponding percentage per act.
@@ -24,6 +25,15 @@ def summarize_lines(my_df):
     '''
     # TODO : Modify the dataframe, removing the line content and replacing
     # it by line count and percent per player per act
+
+    df = my_df.copy()
+    my_df['PlayerLine'] = df.groupby(by=['Player', 'Act'])['Line'].transform('count')
+    #my_df['PlayerLine'] = my_df.groupby(by=['Player', 'Act'])['Line'].transform('count')
+    my_df['PlayerPercent'] = my_df.groupby(by=['Player', 'Act'])['Line'].transform(lambda x: x.count() / my_df['Line'].count() * 100)
+    #my_df['PlayerPercent'] = 100*(df.groupby(by=['Player', 'Act'])['Line'].transform('count') / df.groupby(by=['Player', 'Act'])['Line'].transform('count').groupby(level=1).transform('sum'))
+    #my_df['PlayerPercent'] = 100*(df.groupby(by=['Player', 'Act'])['Line'].count()/df.groupby(by=['Player', 'Act'])['Line'].count().groupby(level=1).transform('sum'))
+
+
     return my_df
 
 
