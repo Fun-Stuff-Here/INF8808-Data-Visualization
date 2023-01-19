@@ -22,13 +22,10 @@ def init_figure():
     fig = go.Figure()
 
     # TODO : Update the template to include our new theme and set the title
-
     fig.update_layout(
         title='Lines per act',
-        template='simple_white',
-        hovermode='closest',
+        template='simple_white+custom',
     )
-
 
     return fig
 
@@ -46,14 +43,14 @@ def draw(fig, data, mode):
     '''
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
-    fig.add_trace(
-        go.Bar(
-            x=data['Act'],
-            y=data[MODE_TO_COLUMN[mode]],
-            name='Lines per act',
+    for player in set(data['Player']):
+        fig.add_trace(
+            go.Bar(x=data['Act'],
+                    y=data[MODE_TO_COLUMN[mode]],
+                    name=player)
         )
-    )
-    
+    fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'})
+
     return fig
 
 

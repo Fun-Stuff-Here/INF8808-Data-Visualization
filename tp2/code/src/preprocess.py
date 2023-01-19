@@ -6,7 +6,7 @@ from modes import MODE_TO_COLUMN
 
 
 def summarize_lines(my_df):
-    
+
     '''
         Sums each player's total of number of lines and  its
         corresponding percentage per act.
