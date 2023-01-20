@@ -67,8 +67,8 @@ def draw(fig, data, mode):
         fig.add_trace(
             go.Bar(x=data['Act'][indexes],
                     y=data[MODE_TO_COLUMN[mode]][indexes],
-                    #hovertemplate=get_hover_template(player, mode, data),
                     name = player,
+                    hovertemplate=get_hover_template(player, mode),
                     )
         )
     
