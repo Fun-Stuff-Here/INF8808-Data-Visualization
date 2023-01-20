@@ -43,14 +43,18 @@ def draw(fig, data, mode):
     '''
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
-    for player in set(data['Player']):
+    players = list(set(data['Player']))
+    players.sort()
+    for player in players:
+        indexes = data['Player'] == player
         fig.add_trace(
-            go.Bar(x=data['Act'],
-                    y=data[MODE_TO_COLUMN[mode]],
-                    name=player)
+            go.Bar(x=data['Act'][indexes],
+                    y=data[MODE_TO_COLUMN[mode]][indexes],
+                    hovertemplate=get_hover_template(player, mode, data),
+                    name = player)
         )
-    fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'})
-
+    fig.update_layout(barmode='stack', legend={'traceorder':'normal'})
+    
     return fig
 
 

@@ -1,16 +1,17 @@
 '''
     Provides the template for the hover tooltips.
 '''
-from modes import MODES
+from modes import MODES, MODE_TO_COLUMN
+import pandas as pd
 
 
-def get_hover_template(name, mode):
+def get_hover_template(name, mode, data):
     '''
         Sets the template for the hover tooltips.
 
         The template contains:
             * A title stating player name with:
-                - Font family: Grenze Gotish
+                - Font family: Grenze Gotisch
                 - Font size: 24px
                 - Font color: Black
             * The number of lines spoken by the player, formatted as:
@@ -27,4 +28,14 @@ def get_hover_template(name, mode):
     '''
     # TODO: Generate and return the over template
     
-    return ''
+    hover_template = '<b style="font-size:24px;font-family:Grenze Gotisch;color:Black;">{Name}</b>'.format(Name=name)
+    hover_template += '<br> </br>'
+    hover_template += '<br> </br>'
+
+    X = data[data['Player'] == name][MODE_TO_COLUMN[mode]].sum()
+    if mode == MODES['count']:
+        hover_template += '<b>{X} lines</b>'.format(X=X)
+    else:
+        hover_template += '<b>{X}% of lines</b>'.format(Y=X)
+    return hover_template + '<extra></extra>'
+
