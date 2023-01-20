@@ -1,3 +1,4 @@
+
 '''
     Contains some functions related to the creation of the bar chart.
     The bar chart displays the data either as counts or as percentages.
@@ -30,6 +31,22 @@ def init_figure():
     return fig
 
 
+"""
+def draw(fig, data, mode):
+    fig = go.Figure(fig)  # conversion back to Graph Object
+    for player in set(data['Player']):
+        fig.add_trace(
+            go.Bar(x=data['Act'],
+                    y=data[MODE_TO_COLUMN[mode]],
+                    name=player)
+        )
+    fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'})
+
+    return fig
+"""
+
+
+
 def draw(fig, data, mode):
     '''
         Draws the bar chart.
@@ -50,12 +67,19 @@ def draw(fig, data, mode):
         fig.add_trace(
             go.Bar(x=data['Act'][indexes],
                     y=data[MODE_TO_COLUMN[mode]][indexes],
-                    hovertemplate=get_hover_template(player, mode, data),
-                    name = player)
+                    #hovertemplate=get_hover_template(player, mode, data),
+                    name = player,
+                    )
         )
-    fig.update_layout(barmode='stack', legend={'traceorder':'normal'})
+    
+    fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'}, hoverlabel=dict(
+            font_color="black",
+            font_size=24,
+            font_family="Grenze Gotisch"
+    ))
     
     return fig
+
 
 
 def update_y_axis(fig, mode):

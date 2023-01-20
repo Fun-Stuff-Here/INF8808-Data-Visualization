@@ -5,7 +5,7 @@ from modes import MODES, MODE_TO_COLUMN
 import pandas as pd
 
 
-def get_hover_template(name, mode, data):
+def get_hover_template(name, mode):
     '''
         Sets the template for the hover tooltips.
 
@@ -32,10 +32,13 @@ def get_hover_template(name, mode, data):
     hover_template += '<br> </br>'
     hover_template += '<br> </br>'
 
-    X = data[data['Player'] == name][MODE_TO_COLUMN[mode]].sum()
     if mode == MODES['count']:
-        hover_template += '<b>{X} lines</b>'.format(X=X)
+        hover_template += '<b>{X} lines</b>'.format(X=mode)
     else:
-        hover_template += '<b>{X}% of lines</b>'.format(Y=X)
-    return hover_template + '<extra></extra>'
+        hover_template += '<b>{X}% of lines</b>'.format(Y=mode)
+
+
+    return_object = hover_template + '<extra></extra>'
+
+    return hover_template
 
