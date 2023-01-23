@@ -68,7 +68,7 @@ def draw(fig, data, mode):
             go.Bar(x=data['Act'][indexes],
                     y=data[MODE_TO_COLUMN[mode]][indexes],
                     name = player,
-                    hovertemplate=get_hover_template(player, mode, data),
+                    hovertemplate=get_hover_template(player, mode),
                     )
         )
     
