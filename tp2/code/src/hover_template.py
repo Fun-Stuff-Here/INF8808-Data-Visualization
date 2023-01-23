@@ -26,16 +26,20 @@ def get_hover_template(name, mode, data):
         Returns:
             The hover template with the elements descibed above
     '''
-    # TODO: Generate and return the over template
-    X = data[data['Player'] == name][MODE_TO_COLUMN[mode]].sum()
+    # TODO: Generate and return the over template# value of y
+    
+    # X = data[data['Player'] == name][MODE_TO_COLUMN[mode]].sum()
     
     hover_template = '<span><b style="font-size:24px;font-family:Grenze Gotisch;color:Black;"></b>{Name}</span><br>'.format(Name=name) 
+    # access y 
+    hover_template += '%{y}'
     if mode == MODES['count']:
-        hover_template += '<b style="font-size:15px;font-family:Arial;color:Grey;">{X} lines</b>'.format(X=X)     
+        hover_template += '<b style="font-size:15px;font-family:Arial;color:Grey;"> lines</b>'   
         hover_template += '<extra></extra>'
 
     else:
-        hover_template += '<b style="font-size:15px;font-family:Arial;color:Grey;">{X} % of lines</b>'.format(X=X)
+        hover_template += '<b style="font-size:15px;font-family:Arial;color:Grey;"> % of lines</b>'
         hover_template += '<extra></extra>'
     return hover_template
+
 
