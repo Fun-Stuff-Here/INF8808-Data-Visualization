@@ -30,12 +30,13 @@ def get_hover_template(name, mode):
         
     hover_template = '<span><b style="font-size:24px;font-family:Grenze Gotisch;color:Black;"></b>{Name}</span><br>'.format(Name=name) 
     # access Y values with hover 
-    hover_template += '%{y}'
     if mode == MODES['count']:
+        hover_template += '%{y}'
         hover_template += '<b style="font-size:15px;font-family:Arial;color:Grey;"> lines</b>'   
         hover_template += '<extra></extra>'
 
     else:
+        hover_template += '%{y:.2f}'
         hover_template += '<b style="font-size:15px;font-family:Arial;color:Grey;"> % of lines</b>'
         hover_template += '<extra></extra>'
     return hover_template
