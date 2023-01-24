@@ -9,8 +9,6 @@
 
     This file is the entry point for our dash app.
 '''
-
-
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
@@ -124,8 +122,6 @@ def radio_updated(mode, figure):
     new_fig = bar_chart.draw(figure, data, mode)
     bar_chart.update_y_axis(new_fig, mode)
     return new_fig, mode 
-
-
 
 data = prep_data()
 

@@ -26,26 +26,11 @@ def init_figure():
     fig.update_layout(
         title='Lines per act',
         template='simple_white+custom',
+        dragmode = False,
+        barmode= 'relative',
     )
 
     return fig
-
-
-"""
-def draw(fig, data, mode):
-    fig = go.Figure(fig)  # conversion back to Graph Object
-    for player in set(data['Player']):
-        fig.add_trace(
-            go.Bar(x=data['Act'],
-                    y=data[MODE_TO_COLUMN[mode]],
-                    name=player)
-        )
-    fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'})
-
-    return fig
-"""
-
-
 
 def draw(fig, data, mode):
     '''
@@ -60,21 +45,16 @@ def draw(fig, data, mode):
     '''
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
-    players = list(set(data['Player']))
-    players.sort()
-    for player in players:
-        indexes = data['Player'] == player
+    fig.data=[] 
+    for player in data.Player.unique():
         fig.add_trace(
-            go.Bar(x=data['Act'][indexes],
-                    y=data[MODE_TO_COLUMN[mode]][indexes],
+            go.Bar(
+                    x= data[data['Player']==player]['Act'],
+                    y=data[data['Player']==player][MODE_TO_COLUMN[mode]],
                     name = player,
                     hovertemplate=get_hover_template(player, mode),
                     )
         )
-    
-    fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'}, hoverlabel=dict(
-    ))
-    
     return fig
 
 
