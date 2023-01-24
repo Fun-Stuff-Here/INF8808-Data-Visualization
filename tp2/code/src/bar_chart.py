@@ -73,9 +73,6 @@ def draw(fig, data, mode):
         )
     
     fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'}, hoverlabel=dict(
-            font_color="black",
-            font_size=24,
-            font_family="Grenze Gotisch"
     ))
     
     return fig
