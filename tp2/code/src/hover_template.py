@@ -27,18 +27,14 @@ def get_hover_template(name, mode):
             The hover template with the elements descibed above
     '''
     # TODO: Generate and return the over template# value of y
-        
-    hover_template = '<span><b style="font-size:24px;font-family:Grenze Gotisch;color:Black;"></b>{Name}</span><br>'.format(Name=name) 
+    hover_template = '<span style="font-size:24px; font-family:Grenze Gotisch; color:Black">{Name}</span><br><br>'.format(Name=name) 
     # access Y values with hover 
     if mode == MODES['count']:
-        hover_template += '%{y}'
-        hover_template += '<b> lines</b>'   
-        hover_template += '<extra></extra>'
-
+        hover_template += '%{y}<span> lines</span>'
     else:
-        hover_template += '%{y:.2f}'
-        hover_template += '<b> % of lines</b>'
-        hover_template += '<extra></extra>'
+        hover_template += '%{y:.2f}<span> % of lines</span>'
+        
+    hover_template += '<extra></extra>'
     return hover_template
 
 
