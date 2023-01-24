@@ -36,5 +36,3 @@ def get_hover_template(name, mode):
         
     hover_template += '<extra></extra>'
     return hover_template
-
-
