@@ -4,7 +4,6 @@
 import plotly.express as px
 import hover_template
 
-
 def get_figure(data):
     '''
         Generates the heatmap from the given dataset.
@@ -22,4 +21,11 @@ def get_figure(data):
     # TODO : Create the heatmap. Make sure to set dragmode=False in
     # the layout. Also don't forget to include the hover template.
 
-    return None
+    fig = px.imshow(data, x=data.columns, y=data.index,
+                    labels=dict(x="Year", y="Neighborhood", color="Trees"),
+                    color_continuous_scale='deep')
+
+    fig.update_layout(coloraxis_colorbar=dict(title="Trees"))
+    fig.update_layout(dragmode=False)
+    fig.update_traces(hovertemplate=hover_template.get_heatmap_hover_template())
+    return fig
