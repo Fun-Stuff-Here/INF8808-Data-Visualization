@@ -2,6 +2,7 @@
     Contains some functions related to the creation of the line chart.
 '''
 import plotly.express as px
+import plotly.graph_objects as go
 import pandas as pd
 import hover_template
 
@@ -21,12 +22,20 @@ def get_empty_figure():
 
     # TODO : Construct the empty figure to display. Make sure to 
     # set dragmode=False in the layout.
-    fig = px.line(x=[0], y=[0], title='No data to display. Select a cell in the heatmap for more information.')
-    fig.update_layout(dragmode=False)
+    text = 'No data to display. Select a cell in the heatmap for more information.'
+    #create an empty figure wit scale 0 to 1
+    fig = go.Figure()
+    #add the text to the figure to the center add word wrap
+    fig.add_annotation(text=text, x=0.5, y=0.5,xref='paper',yref='paper', showarrow=False, font_size=10,
+    xanchor='center', yanchor='middle', align='center',
+    )
+
+    fig.update_layout(dragmode= False, xaxis_visible=False, yaxis_visible=False)
+    add_rectangle_shape(fig)
     return fig
 
 
-def add_rectangle_shape(fig):
+def add_rectangle_shape(fig: go.Figure):
     '''
         Adds a rectangle to the figure displayed
         behind the informational text. The color
@@ -38,8 +47,16 @@ def add_rectangle_shape(fig):
     '''
     # TODO : Draw the rectangle
     fig.add_shape(type="rect",
-        x0=0, y0=0.25, x1=1, y1=0.75,
-        line_color=THEME["pale_color"],
+        x0=0,
+        y0=0.25,
+        x1=1,
+        y1=0.75,
+        xref="paper",
+        yref="paper",
+        ysizemode="scaled",
+        xsizemode="scaled",
+        fillcolor=THEME["pale_color"],
+        line = dict(color=THEME["pale_color"], width=0),
     )
     return fig
 
@@ -66,6 +83,13 @@ def get_figure(line_data:pd.DataFrame, arrond:str, year:int):
             The figure to be displayed
     '''
     # TODO : Construct the required figure. Don't forget to include the hover template
-    fig = px.line(line_data,x='Date_Plantation', y= 'Counts',title=f'{arrond} - {year}')
-    fig.update(data=[{'hovertemplate': hover_template.get_linechart_hover_template()}])
+    
+    if line_data.empty:
+        return get_empty_figure()
+
+    title = f'Trees planted in {arrond} in {year}'
+
+    if len(line_data) == 1:
+        return px.scatter(line_data,x='Date_Plantation', y= 'Counts',title=title)
+    fig = px.line(line_data,x='Date_Plantation', y= 'Counts',title=title)
     return fig

@@ -92,5 +92,5 @@ def get_daily_info(dataframe, arrond, year):
     # TODO : Get daily tree count data and return
     dataframe = dataframe[dataframe['Arrond_Nom'] == arrond]
     dataframe = dataframe[dataframe['Date_Plantation'].dt.year == year]
-    dataframe = dataframe.groupby(dataframe['Date_Plantation'].dt.day).size().reset_index(name='Counts')
+    dataframe = dataframe.groupby(pd.Grouper(freq="D", key='Date_Plantation')).size().reset_index(name='Counts')
     return dataframe
