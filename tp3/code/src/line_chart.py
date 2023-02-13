@@ -66,5 +66,13 @@ def get_figure(line_data:pd.DataFrame, arrond:str, year:int):
             The figure to be displayed
     '''
     # TODO : Construct the required figure. Don't forget to include the hover template
-    fig = px.line(line_data,x='Date_Plantation', y= 'Counts',title=f'{arrond} - {year}')
+    
+    if line_data.empty:
+        return get_empty_figure()
+
+    title = f'Trees planted in {arrond} in {year}'
+    
+    if len(line_data) == 1:
+        return px.scatter(line_data,x='Date_Plantation', y= 'Counts',title=title)
+    fig = px.line(line_data,x='Date_Plantation', y= 'Counts',title=title)
     return fig
