@@ -47,6 +47,20 @@ def create_custom_theme():
         Specifies the x-axis ticks are tilted 45
         degrees to the right.
     '''
+    pio.templates["custom"]= go.layout.Template(
+     layout = {
+        # Fonts!
+        'font': {'family': THEME['font_family'],
+                      'color': THEME['dark_color']},
+        'plot_bgcolor' :  THEME['background_color'],
+        'paper_bgcolor' : THEME['background_color'],
+        # Keep adding others as needed below
+        'hovermode': 'closest',
+        'hoverlabel':   {'bgcolor' : THEME['label_background_color'],
+                        'font' : {'color' : THEME['dark_color'],
+                                'size':THEME['label_font_size']}} ,
+        'xaxis' : {'tickangle':-45}}
+    )
     # TODO : Generate template described above
 
 
@@ -56,3 +70,4 @@ def set_default_theme():
         'plotly_white' theme and our custom theme.
     '''
     # TODO : Set default theme
+    pio.templates.default = 'plotly_white+custom'

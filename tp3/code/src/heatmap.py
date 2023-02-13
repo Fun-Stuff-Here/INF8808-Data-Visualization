@@ -28,5 +28,7 @@ def get_figure(data :pd.DataFrame):
 
     fig.update_layout(coloraxis_colorbar=dict(title="Trees"))
     fig.update_layout(dragmode=False)
+    fig.update(data=[{'hovertemplate': hover_template.get_heatmap_hover_template()}])
+
     
     return fig

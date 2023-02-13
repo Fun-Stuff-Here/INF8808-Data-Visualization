@@ -67,4 +67,5 @@ def get_figure(line_data:pd.DataFrame, arrond:str, year:int):
     '''
     # TODO : Construct the required figure. Don't forget to include the hover template
     fig = px.line(line_data,x='Date_Plantation', y= 'Counts',title=f'{arrond} - {year}')
+    fig.update(data=[{'hovertemplate': hover_template.get_linechart_hover_template()}])
     return fig
