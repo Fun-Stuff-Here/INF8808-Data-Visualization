@@ -18,7 +18,9 @@ def get_empty_figure():
 
     # TODO : Construct the empty figure to display. Make sure to 
     # set dragmode=False in the layout.
-    return None
+    fig = px.line(x=[0], y=[0], title='No data to display. Select a cell in the heatmap for more information.')
+    fig.update_layout(dragmode=False)
+    return fig
 
 
 def add_rectangle_shape(fig):
@@ -57,4 +59,5 @@ def get_figure(line_data, arrond, year):
             The figure to be displayed
     '''
     # TODO : Construct the required figure. Don't forget to include the hover template
-    return None
+
+    return get_empty_figure()

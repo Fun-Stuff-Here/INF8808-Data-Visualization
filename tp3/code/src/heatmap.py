@@ -3,8 +3,9 @@
 '''
 import plotly.express as px
 import hover_template
+import pandas as pd
 
-def get_figure(data):
+def get_figure(data :pd.DataFrame):
     '''
         Generates the heatmap from the given dataset.
 
@@ -27,5 +28,5 @@ def get_figure(data):
 
     fig.update_layout(coloraxis_colorbar=dict(title="Trees"))
     fig.update_layout(dragmode=False)
-    fig.update_traces(hovertemplate=hover_template.get_heatmap_hover_template())
+    
     return fig
