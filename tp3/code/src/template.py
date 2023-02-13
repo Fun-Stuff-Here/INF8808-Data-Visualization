@@ -4,6 +4,7 @@
 import plotly.graph_objects as go
 import plotly.io as pio
 
+
 THEME = {
     'background_color': '#ffffff',
     'font_family': 'Roboto',
@@ -15,6 +16,8 @@ THEME = {
     'label_background_color': '#ffffff',
     'colorscale': 'Bluyl'
 }
+
+
 
 def create_custom_theme():
     '''
@@ -45,33 +48,6 @@ def create_custom_theme():
         degrees to the right.
     '''
     # TODO : Generate template described above
-    pio.templates['custom_theme'] = go.layout.Template(
-        layout=go.Layout(
-            font=dict(
-                color=THEME['dark_color'],
-                family=THEME['font_family']
-            ),
-            plot_bgcolor=THEME['background_color'],
-            paper_bgcolor=THEME['background_color'],
-            hoverlabel=dict(
-                bgcolor=THEME['label_background_color'],
-                font=dict(
-                    color=THEME['dark_color'],
-                    size=THEME['label_font_size']
-                )
-            ),
-            hovermode='closest',
-            xaxis=dict(
-                tickangle=45
-            ),
-            line=dict(
-                color=THEME['line_chart_color']
-            ),
-            colorscale=THEME['colorscale']
-        )
-    )
-
-
 
 
 def set_default_theme():
@@ -80,4 +56,3 @@ def set_default_theme():
         'plotly_white' theme and our custom theme.
     '''
     # TODO : Set default theme
-    pio.templates['default'] = pio.templates['plotly_white'] + pio.templates['custom_theme']

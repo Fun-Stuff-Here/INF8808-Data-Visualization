@@ -18,8 +18,7 @@ def get_empty_figure():
 
     # TODO : Construct the empty figure to display. Make sure to 
     # set dragmode=False in the layout.
-    fig = px.line()
-    return fig
+    return None
 
 
 def add_rectangle_shape(fig):
