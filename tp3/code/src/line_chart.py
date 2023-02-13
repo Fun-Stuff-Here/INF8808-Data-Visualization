@@ -2,6 +2,7 @@
     Contains some functions related to the creation of the line chart.
 '''
 import plotly.express as px
+import pandas as pd
 import hover_template
 
 from template import THEME
@@ -13,6 +14,8 @@ def get_empty_figure():
 
         The text to display is : 'No data to display. Select a cell
         in the heatmap for more information.
+        This empty version of the line chart should contain an informational
+        message and a grey rectangle as a background
 
     '''
 
@@ -34,10 +37,14 @@ def add_rectangle_shape(fig):
         0.25% to 0.75% the height of the figure.
     '''
     # TODO : Draw the rectangle
-    return None
+    fig.add_shape(type="rect",
+        x0=0, y0=0.25, x1=1, y1=0.75,
+        line_color=THEME["pale_color"],
+    )
+    return fig
 
 
-def get_figure(line_data, arrond, year):
+def get_figure(line_data:pd.DataFrame, arrond:str, year:int):
     '''
         Generates the line chart using the given data.
 
@@ -59,5 +66,5 @@ def get_figure(line_data, arrond, year):
             The figure to be displayed
     '''
     # TODO : Construct the required figure. Don't forget to include the hover template
-
-    return get_empty_figure()
+    fig = px.line(line_data,x='Date_Plantation', y= 'Counts',title=f'{arrond} - {year}')
+    return fig
