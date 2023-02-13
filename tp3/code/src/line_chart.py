@@ -90,6 +90,8 @@ def get_figure(line_data:pd.DataFrame, arrond:str, year:int):
     title = f'Trees planted in {arrond} in {year}'
 
     if len(line_data) == 1:
-        return px.scatter(line_data,x='Date_Plantation', y= 'Counts',title=title)
-    fig = px.line(line_data,x='Date_Plantation', y= 'Counts',title=title)
+        return px.scatter(line_data,x='Date_Plantation', y= 'Trees',title=title)
+    fig = px.line(line_data,x='Date_Plantation', y= 'Trees',title=title)
+    fig.update_layout(xaxis_title = "")
+    fig.update(data=[{'hovertemplate': hover_template.get_linechart_hover_template()}])
     return fig

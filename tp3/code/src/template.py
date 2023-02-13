@@ -59,7 +59,10 @@ def create_custom_theme():
         'hoverlabel':   {'bgcolor' : THEME['label_background_color'],
                         'font' : {'color' : THEME['dark_color'],
                                 'size':THEME['label_font_size']}} ,
-        'xaxis' : {'tickangle':-45}}
+        'xaxis' : {'tickangle':-45},
+        'colorscale' : {'sequential':THEME['colorscale']},
+        'colorway':[THEME['line_chart_color']] 
+        }
     )
     # TODO : Generate template described above
 

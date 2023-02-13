@@ -23,8 +23,8 @@ def get_figure(data :pd.DataFrame):
     # the layout. Also don't forget to include the hover template.
 
     fig = px.imshow(data, x=data.columns, y=data.index,
-                    labels=dict(x="Year", y="Neighborhood", color="Trees"),
-                    color_continuous_scale='deep')
+                    labels=dict(x="Year", y="Neighborhood", color="Trees"))
+                    #,color_continuous_scale='deep')
 
     fig.update_layout(coloraxis_colorbar=dict(title="Trees"))
     fig.update_layout(dragmode=False)
