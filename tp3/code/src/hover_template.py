@@ -39,9 +39,9 @@ def get_linechart_hover_template():
     # TODO : Define and return the hover template
 
     hover_template = '<span style="font-weight:bold; font-family:Roboto Slab; color:Black">Date : </span>' 
-    hover_template +='<span style="font-weight:regular; font-family:Roboto Slab; color:Black">%{y}</span><br>'
-    hover_template += '<span style="font-weight:bold; font-family:Roboto Slab; color:Black">Trees : </span>' 
     hover_template +='<span style="font-weight:regular; font-family:Roboto Slab; color:Black">%{x}</span><br>'
+    hover_template += '<span style="font-weight:bold; font-family:Roboto Slab; color:Black">Trees : </span>' 
+    hover_template +='<span style="font-weight:regular; font-family:Roboto Slab; color:Black">%{y}</span><br>'
     hover_template += '<extra></extra>'
 
     return hover_template
