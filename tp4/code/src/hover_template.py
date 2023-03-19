@@ -18,4 +18,10 @@ def get_bubble_hover_template():
     '''
     # TODO : Generate tooltip
 
-    return ''
+    return "<br>".join([
+        "<span style='font-weight: bold'>Country</span> : %{customdata[0]}",
+        "<span style='font-weight: bold'>Population</span> : %{customdata[1]}",
+        "<span style='font-weight: bold'>GDP</span> : %{x} $ (USD)",
+        "<span style='font-weight: bold'>CO2 emissions : </span> : %{y} metric tons",
+        "<extra></extra>"
+    ])

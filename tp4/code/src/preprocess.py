@@ -30,7 +30,7 @@ def get_range(col, df1, df2):
             The minimum and maximum values across the two dataframes
     '''
     # TODO : Get the range from the dataframes
-    return [df1[col].min(), df2[col].max()]
+    return [min(df1[col].min(), df1[col].min()), max(df1[col].max(), df2[col].max())]
 
 
 def combine_dfs(df1, df2):
