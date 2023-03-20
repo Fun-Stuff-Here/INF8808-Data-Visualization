@@ -87,7 +87,7 @@ def update_animation_menu(fig):
             type="buttons",
             buttons=list([
                 dict(
-                    args=[None, dict(frame=dict(duration=500, redraw=False), mode ="immediate", fromcurrent=True, transition=dict(duration=500, easing="linear"))],
+                    args=[None, dict(frame=dict(duration=1500, redraw=False), mode ="immediate", fromcurrent=True, transition=dict(duration=500, easing="linear"))],
                     label="Animate",
                     method="animate"
                 ),
