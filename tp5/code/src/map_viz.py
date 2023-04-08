@@ -30,8 +30,22 @@ def add_choro_trace(fig, montreal_data, locations, z_vals, colorscale):
 
     '''
     # TODO : Draw the map base
-    return None
+    fig = go.Figure(
+        go.Choroplethmapbox(
+            geojson=montreal_data,
+            locations=locations,
+            featureidkey="properties.NOM",
+            z=z_vals,
+            zauto=True,
+            colorscale=colorscale,
+            showscale=False,
+            marker_line_color='grey',
+        )
+    )
 
+    fig.update_traces(hovertemplate=hover.map_base_hover_template())
+
+    return fig
 
 def add_scatter_traces(fig, street_df):
     '''
@@ -48,4 +62,30 @@ def add_scatter_traces(fig, street_df):
 
     '''
     # TODO : Add the scatter markers to the map base
-    return None
+    colors = {
+        "Noyau villageois": "#636EFA",
+        "Passage entre rues résidentielles": "#EF553B",
+        "Rue entre un parc et un bâtiment public ou institutionnel": "#19D3F3",
+        "Rue bordant un bâtiment public ou institutionnel": "#00CC96",
+        "Rue transversale à une rue commerciale": "#FF6692",
+        "Rue en bordure ou entre deux parcs ou place publique": "#FFA15A",
+        "Rue commerciale de quartier, d’ambiance ou de destination": "#AB63FA",
+    }
+
+    for info, data in street_df.groupby("properties.TYPE_SITE_INTERVENTION"):
+        fig.add_trace(
+            go.Scattermapbox(
+                lon=data["properties.LONGITUDE"],
+                lat=data["properties.LATITUDE"],
+                name=info,
+                customdata=[
+                    data["properties.NOM_PROJET"],
+                    data["properties.MODE_IMPLANTATION"],
+                    data["properties.OBJECTIF_THEMATIQUE"],
+                ],
+                hovertemplate=hover.map_marker_hover_template(info),
+                marker=go.scattermapbox.Marker(size=20, color=colors[info]),
+            )
+        )
+
+    return fig
